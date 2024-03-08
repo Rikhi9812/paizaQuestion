@@ -41,13 +41,10 @@ public class FerrisCircle {
             System.out.println(mapc.get(a));
         });
         System.out.println();
-        int t,v, x;
         
         while(ppl > 0) {
 
-             t = mapcm.get(j);
-             v = mapc.get(j);
-             x = mapg.get(i);
+
                 if(mapg.get(i) <= mapc.get(j)){
                     mapcm.replace(j,  Integer.valueOf(mapg.get(i)) +  Integer.valueOf(mapcm.get(j)));
                     ppl = ppl - mapg.get(i);
@@ -63,10 +60,6 @@ public class FerrisCircle {
                 if(j > c-1){
                     j=0;
                 }
-
-                 t = mapcm.get(j);
-             v = mapc.get(j);
-             x = mapg.get(i);
             }
 
             mapcm.forEach((a,b) -> {
