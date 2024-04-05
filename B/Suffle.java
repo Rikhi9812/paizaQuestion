@@ -45,13 +45,12 @@ public class Suffle {
                 }
             }
             listList.clear();
-            ;
-            int e = 0;
-            while (e < N) {
+            x= 0;
+            while (x < N) {
                 ArrayList<Integer> list = new ArrayList<>();
-                for (int d = 0; d < M && e < N; d++) {
-                    list.add(array[e]);
-                    e++;
+                for (int d = 0; d < M && x < N; d++) {
+                    list.add(array[x]);
+                    x++;
                 }
                 listList.add(list);
             }
