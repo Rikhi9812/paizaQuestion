@@ -11,10 +11,7 @@ public class Donuts {
         char[][] setChar = new char[height][width];
 
         for(int i = 0; i < height; i++) {
-            String addchar = sc.next();
-            for(int j = 0; j < width; j++) {
-                setChar[i][j] = addchar.charAt(j);
-            }
+                setChar[i] = sc.next().toCharArray();
         }
 
         int ans = 0;
