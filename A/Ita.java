@@ -31,7 +31,7 @@ public class Ita {
         for (int i = 0; i < r; i++) {
             String array[] = sc.nextLine().split(" ");
             for (int j = 0; j < c; j++) {
-                grid[i][j] = Integer.parseInt(array[i]);
+                grid[i][j] = Integer.parseInt(array[j]);
             }
         }
         List<Integer> list = new ArrayList<>();
