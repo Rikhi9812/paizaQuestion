@@ -16,25 +16,88 @@ public class Paiza {
         int L = Integer.parseInt(LR[0]);
         int R = Integer.parseInt(LR[1]);
 
-        String boxArray[][] = new String[h][w];
+        char grid[][] = new char[h][w];
 
         for (int i = 0; i < h; i++) {
-            String input = scanner.nextLine();
-            String inputArray[] = input.split("");
+            char inputArray[] = scanner.nextLine().toCharArray();
             for (int j = 0; j < w; j++) {
-                boxArray[i][j] = inputArray[j];
+                grid[i][j] = inputArray[j];
             }
         }
 
-        int i = 0;
-        int j = 0;
-        int k = -1;
-        int l = -1;
-        String lrtb = "l";
         StringBuilder builder = new StringBuilder();
-        String answer = roundFunction(boxArray, i, j, k, l, h, w, lrtb, builder);
-        System.out.println(answer.substring(L - 1, R));
+        boolean visited[][] = new boolean[h][w];
+        boolean left = false, right = true, up = false, down = false;
+        int total = h * w;
+        int i = 0, k = 0, l = 0;
+        while (i < total) {
+            if (right) {
+                if (isVisited(visited, k, l)) {
+                    visited[k][l] = true;
+                    builder.append(grid[k][l]);
+                    l++;
+                } else {
+                    right = false;
+                    down = true;
+                    k++;
+                    l--;
+                    continue;
+                }
+            }
+            if (down) {
+                if (isVisited(visited, k, l)) {
+                    visited[k][l] = true;
+                    builder.append(grid[k][l]);
+                    k++;
+                } else {
+                    down = false;
+                    left = true;
+                    k--;
+                    l--;
+                    continue;
+                }
+            }
+            if (left) {
+                if (isVisited(visited, k, l)) {
+                    visited[k][l] = true;
+                    builder.append(grid[k][l]);
+                    l--;
+                } else {
+                    left = false;
+                    up = true;
+                    k--;
+                    l++;
+                    continue;
+                }
+            }
+            if (up) {
+                if (isVisited(visited, k, l)) {
+                    visited[k][l] = true;
+                    builder.append(grid[k][l]);
+                    k--;
+                } else {
+                    up = false;
+                    right = true;
+                    k++;
+                    l++;
+                    continue;
+                }
+            }
+            i++;
+        }
 
+        System.out.println(builder.toString().substring(L - 1, R));
+
+        scanner.close();
+    }
+
+    private static boolean isVisited(boolean[][] visited, int row, int col) {
+        if (row < 0 || col < 0 || row >= visited.length || col >= visited[0].length) {
+            return false;
+        }
+        if (visited[row][col])
+            return false;
+        return true;
     }
 
     public static String spiralTraverse(String[][] boxArray) {
@@ -75,40 +138,6 @@ public class Paiza {
                     builder.append(boxArray[i][l]);
                 }
                 l++; // Move the left boundary right
-            }
-        }
-
-        return builder.toString();
-    }
-
-    public static String roundFunction(String[][] boxArray, int i, int j, int k, int l, int h, int w, String lrtb,
-            StringBuilder builder) {
-        if (i > k && j > l && i < h && j < w) {
-            builder.append(boxArray[i][j]);
-            if (lrtb.equals("l")) {
-                if (j + 1 == w) {
-                    roundFunction(boxArray, i + 1, j, k + 1, l, h, w, "b", builder);
-                } else {
-                    roundFunction(boxArray, i, j + 1, k, l, h, w, "l", builder);
-                }
-            } else if (lrtb.equals("b")) {
-                if (i + 1 == h) {
-                    roundFunction(boxArray, i, j - 1, k, l, h, w - 1, "r", builder);
-                } else {
-                    roundFunction(boxArray, i + 1, j, k, l, h, w, "b", builder);
-                }
-            } else if (lrtb.equals("r")) {
-                if (j == l + 1) {
-                    roundFunction(boxArray, i - 1, j, k, l, h - 1, w, "t", builder);
-                } else {
-                    roundFunction(boxArray, i, j - 1, k, l, h, w, "r", builder);
-                }
-            } else if (lrtb.equals("t")) {
-                if (i == k + 1) {
-                    roundFunction(boxArray, i, j + 1, k, l + 1, h, w, "l", builder);
-                } else {
-                    roundFunction(boxArray, i - 1, j, k, l, h, w, "t", builder);
-                }
             }
         }
 
